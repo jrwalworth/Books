@@ -21,7 +21,15 @@
             <div class="col col-6">All Books</div>
         </div>
         <div class="row">
-            <div class="col col-6">Book Form...</div>
+            <div class="col col-6">
+                <form action="/books/create" method="post">
+                    <label for="title">Book Title: </label>
+                    <input type="text" name="title" id="book_title" class="form-control">
+                    <label for="num_pages">Number of pages: </label>
+                    <input type="text" name="num_of_pages" class="form-control">
+                    <input class="btn btn-outline-dark"type="submit" value="Add Author">
+                </form>
+            </div>
             <div class="col col-6">
                 <table>
                     <thead>
