@@ -3,7 +3,7 @@
     margin:0;
     font-family: Roboto, sans-serif;
     font-weight: 700;
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 
 nav {
@@ -40,3 +40,7 @@ input[type=text] {
     justify-content: flex-start;
     align-items: center;
 }
+
+/* .author-table {
+    max-width: fit-content;
+} */

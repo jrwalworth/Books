@@ -17,24 +17,36 @@
     </nav>
     <div class="container">
         <div class="row mb-5 border-bottom">
-            <div class="col col-6">New Book</div>
-            <div class="col col-6">All Books</div>
+            <div class="col col-6 mt-2"><h2>New Book</h2></div>
+            <div class="col col-6 mt-2"><h2>All Books</h2></div>
+        </div>
+        <div class="row">
+            <div class="messages text-danger col-12">
+                {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
         </div>
         <div class="row">
             <div class="col col-6">
                 <form action="/books/create" method="post">
                     <label for="title">Book Title: </label>
-                    <input type="text" name="title" id="book_title" class="form-control">
+                    <input type="text" name="title" id="book_title" class="form-control mb-2">
                     <label for="num_pages">Number of pages: </label>
-                    <input type="text" name="num_of_pages" class="form-control">
-                    <input class="btn btn-outline-dark"type="submit" value="Add Author">
+                    <input type="text" name="num_of_pages" class="form-control mb-2">
+                    
+                    <input class="btn btn-outline-dark mt-4" type="submit" value="Add Book">
                 </form>
             </div>
             <div class="col col-6">
-                <table>
-                    <thead>
-                        <th class="border-bottom">Title</th>
-                        <th class="border-bottom">Number of Pages</th>
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <th>Title</th>
+                        <th>Number of Pages</th>
                     </thead>
                     <tbody>
                         {% for b in all_books %}

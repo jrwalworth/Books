@@ -17,5 +17,12 @@ def authors():
 
 #create_author
 @app.route('/authors/create', methods=['POST'])
-def new_author(cls, data):
-    redirect('/authors')
+def new_author():
+    data = {
+        'name' : request.form['name']
+    }
+    if not Author.v_add_author(request.form):
+        return redirect('/')
+    Author.create_author(data)
+    flash(f'Success! Author {data["name"]} has been added to the database.')
+    return redirect('/authors')

@@ -24,7 +24,8 @@ class Author:
 
     @classmethod
     def create_author(cls, data):
-        pass
+        query = "INSERT INTO authors (name) VALUES (%(name)s);"
+        return connectToMySQL(cls.db).query_db(query, data)
     
     @classmethod
     def update_author(cls, data):
@@ -34,3 +35,11 @@ class Author:
     def delete_author(cls, data):
         pass
     
+    #validate author form
+    @staticmethod
+    def v_add_author(author):
+        is_valid = True
+        if len(author['name']) < 1:
+            is_valid = False
+            flash('You must add an author name to proceed.')
+        return is_valid
