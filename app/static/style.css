@@ -35,9 +35,10 @@ nav {
     list-style-type: none;
 }
 
-input[type=text] {
+input[type=text], select{
     max-width: 300px;
 }
+
 
 .a-input {
     display: flex;

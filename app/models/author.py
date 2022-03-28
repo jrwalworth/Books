@@ -1,5 +1,6 @@
 from app.config.mysqlconnection import connectToMySQL
 from flask import flash
+from app.models import book
 
 class Author:
     db = 'books_schema'
@@ -8,6 +9,7 @@ class Author:
         self.name = data['name']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.auth_faves = []
         
     @classmethod
     def get_one(cls, data):
@@ -47,17 +49,34 @@ class Author:
         return connectToMySQL(cls.db).query_db(query, data)
     
     @classmethod
+    def remove_fav(cls, data):
+        query = "DELETE FROM authors a WHERE a.id NOT IN (SELECT author_id FROM favorites\
+            WHERE book_id = %(id)s);"
+        authors = []
+        results = connectToMySQL(cls.db).query_db(query, data)
+        for a in results:
+            authors.append(cls(a))
+        return authors
+    
+    @classmethod
     def get_author_faves(cls, data):
-        query = "SELECT a.*, f.*, b.* FROM authors a LEFT JOIN favorites f ON a.id = f.author_id\
+        query = "SELECT * FROM authors a LEFT JOIN favorites f ON a.id = f.author_id\
             LEFT JOIN books b ON f.book_id = b.id WHERE a.id=%(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        
-        
-        auth_faves = []
+        author = cls(results[0])
         for af in results:
-            auth_faves.append(af)
-        return auth_faves
-        
+            if af['b.id'] == None:
+                break
+            data = {
+                'id': af['b.id'],
+                'title' : af['title'],
+                'num_of_pages' : af['num_of_pages'],
+                'created_at' : af['b.created_at'],
+                'updated_at' : af['b.updated_at'],
+            }
+            author.auth_faves.append(book.Book(data))
+        return author
+            
     #validate author form
     @staticmethod
     def v_add_author(author):

@@ -42,9 +42,10 @@ def show_author(id):
 
 #add authors favorites from form
 @app.route('/authors/fav', methods=['POST'])
-def authors_fav(id):
+def authors_fav():
     data = {
-        'id': id,
+        'author_id' : request.form['author_id'],
+        'book_id' : request.form['book_id'],
     }
     Author.add_fav(data)
-    return redirect('/authors/<int:id>/show', id=id)
+    return redirect(f'/authors/{request.form["author_id"]}/show')

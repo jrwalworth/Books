@@ -1,6 +1,7 @@
 from flask import render_template, redirect, request, flash
 from app import app
 from app.models.book import Book
+from app.models.author import Author
 
 
 @app.route('/books')
@@ -20,3 +21,15 @@ def new_book():
     Book.create_book(data)
     flash(f'Success! {data["title"]} book has been added to the database.')
     return redirect('/books')
+
+#show author page
+@app.route('/books/<int:id>/show')
+def show_book(id):
+    data = {
+        'id': id,
+    }
+    # Add author favorites to the show page
+    # author_faves = Author.get_author_faves(data)
+    all_authors = Author.get_all()
+    return render_template('show_book.html', book = Book.get_one(data),\
+        all_authors = Author.get_all())

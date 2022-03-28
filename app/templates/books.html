@@ -51,7 +51,7 @@
                     <tbody>
                         {% for b in all_books %}
                             <tr>
-                                <td>{{b['title']}}</td>
+                                <td><a href="/books/{{b.id}}/show">{{b['title']}}</a></td>
                                 <td>{{b['num_of_pages']}}</td>
                             </tr>
                         {% endfor %}
