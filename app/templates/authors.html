@@ -17,8 +17,8 @@
     </nav>
     <div class="container">
         <div class="row mb-5 border-bottom">
-            <div class="col col-6 mt-2"><h2>New Author</h2></div>
-            <div class="col col-6 mt-2"><h2>All Authors</h2></div>
+            <div class="col col-6 mt-2 i-main"><h2>New Author</h2></div>
+            <div class="col col-6 mt-2 i-main"><h2>All Authors</h2></div>
         </div>
         <div class="row">
             <div class="messages text-danger col-12">
@@ -49,7 +49,7 @@
                     <tbody>
                         {% for a in all_authors %}
                             <tr>
-                                <td>{{a['name']}}</td>
+                                <td><a href="/authors/{{a['id']}}/show">{{a['name']}}</a></td>
                             </tr>
                         {% endfor %}
                         

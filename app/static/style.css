@@ -6,6 +6,10 @@
     /* border: 1px dotted red; */
 }
 
+
+.i-main {
+    text-align: center;
+}
 nav {
     height: 50px;
     background-color: black;

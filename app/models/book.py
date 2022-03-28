@@ -12,7 +12,11 @@ class Book:
         
     @classmethod
     def get_one(cls, data):
-        pass
+        query = "SELECT * FROM books WHERE id=%(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
     
     @classmethod
     def get_all(cls):
@@ -23,16 +27,29 @@ class Book:
             all_books.append(book)
         return all_books
 
-
     @classmethod
     def create_book(cls, data):
-        pass
+        query = "INSERT INTO books (title, num_of_pages) VALUES (%(title)s, %(num_of_pages)s);"
+        return connectToMySQL(cls.db).query_db(query, data)
     
     @classmethod
     def update_book(cls, data):
-        pass
-    
+        query = "UPDATE books SET title=%(title)s, num_of_pages=%(num_of_pages)s WHERE id=%(id)s;"
+        return connectToMySQL(cls.db).query_db(query,data)
+        
     @classmethod
     def delete_book(cls, data):
-        pass
+        query = "DELET FROM books WHERE id=%(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
     
+    #validate book form
+    @staticmethod
+    def v_add_book(book):
+        is_valid = True
+        if len(book['title']) < 1:
+            is_valid = False
+            flash('You must add a book title.')
+        if len(book['num_of_pages']) < 1:
+            is_valid = False
+            flash('A book must have more pages than this.')
+        return is_valid
