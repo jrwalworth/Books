@@ -39,15 +39,15 @@
                         <th># of Pages</th>
                     </thead>
                     <tbody>
-                    {% for b in author.author_faves %}
+                        {% for f in author.auth_faves %}
                         <tr>
-                            <td>{{b.title}}</td>
-                            <td>{{b.num_of_pages}}</td>
+                            <td>{{f.title}}</td>
+                            <td>{{f.num_of_pages}}</td>
                         </tr>
-                    {% endfor %}
-                        
+                        {% endfor %}
                     </tbody>
                 </table>
+                
             </div>
             <div class="col col-6">
                 <form action="/authors/fav" method="post">
@@ -55,12 +55,12 @@
                         <label for="book">Book: </label>
                         <input type="hidden" name="author_id" value="{{author.id}}">
                         <select name="book_id" id="" class="form-select ms-3">
+                            <!-- Change this to show unfavorited books
+                                    this will make sure the author can't refavorite the same book -->
                             {% for b in all_books %}
                             <option value="{{b['id']}}">{{b['title']}}</option>
                             {% endfor %}
-                            
                         </select>
-
                     </section>
                     <input class="btn btn-outline-dark mt-4" type="submit" value="Add to Favorites">
                 </form>

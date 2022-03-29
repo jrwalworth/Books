@@ -1,6 +1,6 @@
 from app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from app.models import book
+from app.models.book import Book
 
 class Author:
     db = 'books_schema'
@@ -65,6 +65,7 @@ class Author:
         results = connectToMySQL(cls.db).query_db(query, data)
         author = cls(results[0])
         for af in results:
+            #if author has no books favorites
             if af['b.id'] == None:
                 break
             data = {
@@ -74,7 +75,7 @@ class Author:
                 'created_at' : af['b.created_at'],
                 'updated_at' : af['b.updated_at'],
             }
-            author.auth_faves.append(book.Book(data))
+            author.auth_faves.append(Book(data))
         return author
     
     @classmethod

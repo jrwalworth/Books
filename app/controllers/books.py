@@ -29,7 +29,18 @@ def show_book(id):
         'id': id,
     }
     # Add author favorites to the show page
-    favd_books = Book.get_all_favd(data)
+    book = Book.get_all_favd(data)
     # all_authors = Author.get_all()
-    return render_template('show_book.html', book = Book.get_one(data),\
-        all_authors = Author.get_all(), favd_books=favd_books)
+    return render_template('show_book.html', book = book,\
+        all_authors = Author.get_all())
+
+
+#add authors favorite book from form
+@app.route('/books/fav', methods=['POST'])
+def books_fav():
+    data = {
+        'author_id' : request.form['author_id'],
+        'book_id' : request.form['book_id'],
+    }
+    Book.add_fav(data)
+    return redirect(f'/books/{request.form["book_id"]}/show')

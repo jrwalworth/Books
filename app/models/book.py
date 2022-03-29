@@ -47,9 +47,22 @@ class Book:
             book.auth_have_favd.append(author.Author(data))
         return book
     
+    
     @classmethod
-    def remove_favd_book(cls, data):
-        pass
+    def add_fav(cls, data):
+        query = "INSERT INTO favorites (author_id, book_id) VALUES (%(author_id)s, %(book_id)s);"
+        return connectToMySQL(cls.db).query_db(query, data)
+    
+    
+    # @classmethod
+    # def not_favd_books(cls, data):
+    #         query = "SELECT * FROM books b WHERE b.id NOT IN (SELECT book_id\
+    #         FROM favorites WHERE author_id = %(id)s);"
+    #         books = []
+    #         results = connectToMySQL(cls.db).query_db(query, data)
+    #         for r in results:
+    #             books.append(cls(r))
+    #         return books
 
     @classmethod
     def create_book(cls, data):
@@ -65,6 +78,7 @@ class Book:
     def delete_book(cls, data):
         query = "DELET FROM books WHERE id=%(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
+    
     
     #validate book form
     @staticmethod

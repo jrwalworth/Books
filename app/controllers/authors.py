@@ -35,9 +35,11 @@ def show_author(id):
     }
     all_books = Book.get_all()
     # Add author favorites to the show page
-    # author_faves = Author.get_author_faves(data)
-    return render_template('show_author.html', author = Author.get_author_faves(data),\
-        all_books=all_books) # author_faves=author_faves)
+    author = Author.get_author_faves(data)
+    # author = Author.get_one(data)
+    # print('author favorites:', author.auth_faves[0].title)
+    return render_template('show_author.html', author=author,\
+        all_books=all_books)
 
 
 #add authors favorite book from form
