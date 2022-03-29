@@ -39,12 +39,12 @@
                         <th># of Pages</th>
                     </thead>
                     <tbody>
-                        {% for b in author_faves %}
+                    {% for b in author.author_faves %}
                         <tr>
-                            <td>{{b['title']}}</td>
-                            <td>{{b['num_of_pages']}}</td>
+                            <td>{{b.title}}</td>
+                            <td>{{b.num_of_pages}}</td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
                         
                     </tbody>
                 </table>

@@ -29,7 +29,7 @@ def show_book(id):
         'id': id,
     }
     # Add author favorites to the show page
-    # author_faves = Author.get_author_faves(data)
-    all_authors = Author.get_all()
+    favd_books = Book.get_all_favd(data)
+    # all_authors = Author.get_all()
     return render_template('show_book.html', book = Book.get_one(data),\
-        all_authors = Author.get_all())
+        all_authors = Author.get_all(), favd_books=favd_books)

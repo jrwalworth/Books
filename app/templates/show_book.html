@@ -39,10 +39,13 @@
                         <th># of Pages</th>
                     </thead>
                     <tbody>
+                        {% for a in book.auth_have_favd %}
                         <tr>
-                            <td></td>
+                            <td>{{a['name']}}</td>
                             <td></td>
                         </tr>
+                        {% endfor %}
+                        
                     </tbody>
                 </table>
             </div>

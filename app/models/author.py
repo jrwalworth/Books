@@ -61,7 +61,7 @@ class Author:
     @classmethod
     def get_author_faves(cls, data):
         query = "SELECT * FROM authors a LEFT JOIN favorites f ON a.id = f.author_id\
-            LEFT JOIN books b ON f.book_id = b.id WHERE a.id=%(id)s;"
+            LEFT JOIN books b ON b.id = f.book_id WHERE a.id=%(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         author = cls(results[0])
         for af in results:
@@ -76,7 +76,17 @@ class Author:
             }
             author.auth_faves.append(book.Book(data))
         return author
-            
+    
+    @classmethod
+    def unfav_authors(cls,data):
+        query = "SELECT * FROM authors a WHERE a.id NOT IN (SELECT author_id\
+            FROM favorites WHERE book_id = %(id)s);"
+        authors = []
+        results = connectToMySQL(cls.db).query_db(query, data)
+        for r in results:
+            authors.append(cls(r))
+        return authors
+
     #validate author form
     @staticmethod
     def v_add_author(author):

@@ -35,15 +35,14 @@ class Book:
             LEFT JOIN authors a ON f.author_id = a.id WHERE b.id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         book = cls(results[0])
-        
-        for fav in results:
-            if fav['author_id'] == None:
+        for r in results:
+            if r['a.id'] == None:
                 break
             data = {
-                'id' : fav['a.id'],
-                'name' : fav['name'],
-                'created_at' : fav['a.created_at'],
-                'updated_at' : fav['a.updated_at'],
+                'id' : r['a.id'],
+                'name' : r['name'],
+                'created_at' : r['a.created_at'],
+                'updated_at' : r['a.updated_at'],
             }
             book.auth_have_favd.append(author.Author(data))
         return book
